@@ -26,7 +26,19 @@ async function login(req, res, next) {
   }
 }
 
+async function me(req, res, next) {
+  try {
+    res.json({
+      message: 'Utilisateur connecte',
+      user: req.user,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   register,
   login,
+  me,
 };

@@ -9,10 +9,15 @@ function generateToken (user) {
     email: user.email,
   };
 
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '5m' });
-  return token;
+  // const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '5m' });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '5m' });;
+}
+
+function verifyToken(token) {
+  return jwt.verify(token, JWT_SECRET);
 }
 
 module.exports = {
-  generateToken
+  generateToken,
+  verifyToken,
 };  

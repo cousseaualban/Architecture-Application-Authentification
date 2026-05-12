@@ -1,5 +1,6 @@
 const express = require('express');
 const authController = require('../controllers/auth.controller');
+const requireAuth = require('../middlewares/requireAuth');
 
 const router = express.Router();
 
@@ -63,5 +64,10 @@ router.post('/register', authController.register);
  *         description: Erreur
  */
 router.post('/login', authController.login);
+
+//route apres login, Mise en place de la vérification JWT (user connecté)
+// 401 : Token manquant/ Format du token invalide/ Token invalide ou expire
+// 200 : Utilisateur connecte
+router.get('/me', requireAuth, authController.me);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const AppError = require('./AppError');
 function validateLoginPayload(payload) {
   if (!payload.email || !payload.password) {
     throw new AppError('Email et mot de passe sont requis', 401);
