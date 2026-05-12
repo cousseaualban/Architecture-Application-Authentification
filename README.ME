@@ -1,8 +1,26 @@
-Commandes effecutées :
+Commandes effectuees :
 
 - npm init -y
 - npm install express
+- npm install mysql2 dotenv
 
 Lancer le serveur -> npm start
 
-Répartition des tâches :
+Base de donnees :
+
+- Creer la base et la table avec le fichier database.sql
+- Base par defaut : authentification_db
+- Table utilisee : users
+- Configuration dans le fichier .env :
+  - DB_HOST
+  - DB_PORT
+  - DB_USER
+  - DB_PASSWORD
+  - DB_NAME
+
+Endpoint inscription :
+
+- POST http://localhost:3000/api/auth/register
+
+
+
