@@ -3,14 +3,11 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 
 const usersRoutes = require('./routes/users');
+require('dotenv').config();
 
-const app = express();
-const PORT = 3000;
+const app = require('./src/app');
 
-// route principale
-app.get('/', (req, res) => {
-  res.send('Hello Express 🚀');
-});
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -24,5 +21,5 @@ app.use(
 
 // démarrage serveur
 app.listen(PORT, () => {
-  console.log(`Serveur lancé sur http://localhost:${PORT}`);
+  console.log(`Serveur lance sur http://localhost:${PORT}`);
 });
