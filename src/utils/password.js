@@ -19,6 +19,21 @@ function hashPassword(password) {
   });
 }
 
+function comparePasswords(password, storedHash) {
+  return new Promise((resolve, reject) => {
+    const [iterations, salt, hash] = storedHash.split(':');
+    crypto.pbkdf2(password, salt, parseInt(iterations), KEY_LENGTH, DIGEST, (error, derivedKey) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      
+      resolve(derivedKey.toString('hex') === hash);
+    });
+  });
+}
+
 module.exports = {
   hashPassword,
+  comparePasswords,
 };

@@ -1,7 +1,9 @@
 const userRepository = require('../repositories/user.repository');
-const { hashPassword } = require('../utils/password');
+const { hashPassword, comparePasswords } = require('../utils/password');
 const { validateRegisterPayload } = require('../validators/auth.validator');
 const AppError = require('../utils/AppError');
+const { validateLoginPayload } = require('../utils/payload');
+const { generateToken } = require('../utils/token');
 
 async function register(payload) {
   const data = validateRegisterPayload(payload);
@@ -26,6 +28,27 @@ async function register(payload) {
   };
 }
 
+async function login(payload) {
+  const data = validateLoginPayload(payload);
+  const user = await userRepository.findByEmail(data.email);
+
+  if (!user) {
+    throw new AppError('Email ou mot de passe incorrect', 401);
+  }
+
+  const isPasswordValid = await comparePasswords(data.password, user.passwordHash);
+
+  if (!isPasswordValid) {
+    throw new AppError('Email ou mot de passe incorrect', 401);
+  }
+
+  const token = generateToken(user);
+
+  return token;
+}
+
+
 module.exports = {
   register,
+  login,
 };
