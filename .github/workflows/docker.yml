@@ -32,8 +32,10 @@ jobs:
 
       - name: Construction de l'image Docker
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/login-service:latest .
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}/login-service:latest" | tr '[:upper:]' '[:lower:]')
+          docker build -t $IMAGE_NAME .
 
       - name: Push l'image Docker vers le repo Github
         run: |
-          docker push ghcr.io/${{ github.repository }}/login-service:latest
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}/login-service:latest" | tr '[:upper:]' '[:lower:]')
+          docker push $IMAGE_NAME
