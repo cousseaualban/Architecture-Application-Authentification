@@ -1,8 +1,34 @@
+PARTIE AUTHENTIFICATION
+
+Technologies utilisées :
+
+Backend Express -> JS
+BDD : SQL
+
+Répartition des tâches :
+
+Inscription : Ilef
+Login : Sam
+Documentation API (Swagger) : Sam
+Vérification des droits : Nguyen
+Docker : Alban
+
+1. pour le groupe 4 (PAIEMENT) Le token doit :
+                                                - Le token doit contenir -> nom d'utilisateur, adresse
+                                                - expirer au bout de 5 minutes, une fois expiré il faut que l'utilisateur soit déconnecté & redirigé vers la page d'authentification
+2. Middleware de vérification si l'user est authentifié avant de payer + si token valide
+3. Pour le groupe 3 (FRONT),  Gestion d'erreurs d'authentification 
+                                                                    => 200 si OK -> renvoie le token
+                                                                    => 400 si KO -> authentication failed
+
 Commandes effecutées :
 
 - npm init -y
 - npm install express
 
-Lancer le serveur -> npm start
 
-Répartition des tâches :
+Génération & lancement du container Docker :
+- docker build -t login-service .
+- docker run -p 8001:8001 login-service
+
+Lancer le serveur -> npm start
