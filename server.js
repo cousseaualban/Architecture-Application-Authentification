@@ -1,14 +1,9 @@
-const express = require('express');
+require('dotenv').config();
 
-const app = express();
-const PORT = 3000;
-
-// route principale
-app.get('/', (req, res) => {
-  res.send('Hello Express 🚀');
-});
+const app = require('./src/app');
+const PORT = process.env.PORT || 3000;
 
 // démarrage serveur
 app.listen(PORT, () => {
-  console.log(`Serveur lancé sur http://localhost:${PORT}`);
+  console.log(`Serveur lance sur http://localhost:${PORT}`);
 });
