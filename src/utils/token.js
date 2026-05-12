@@ -9,7 +9,7 @@ function generateToken (user) {
     email: user.email,
   };
 
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '5m' });
   return token;
 }
 
