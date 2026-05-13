@@ -24,6 +24,10 @@ app.use(
   swaggerUi.setup(swaggerSpec)
 );
 
+app.get('/health', (req, res) => {
+  res.send('Login service OK');
+});
+
 
 app.use('/api/auth', authRoutes);
 app.use(errorHandler);

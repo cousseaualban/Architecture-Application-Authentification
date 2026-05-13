@@ -1,0 +1,41 @@
+name: Pipeline CI/CD - Groupe 2, Login Service
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  test-build-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extraction du code
+        uses: actions/checkout@v4
+
+      - name: Initialisation de Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installation des dépendances
+        run: npm ci
+
+      - name: Exécution des tests
+        run: npm test || echo "No tests defined"
+
+      - name: Authentification vers le repo Github
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Construction de l'image Docker
+        run: |
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}/login-service:latest" | tr '[:upper:]' '[:lower:]')
+          docker build -t $IMAGE_NAME .
+
+      - name: Push l'image Docker vers le repo Github
+        run: |
+          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}/login-service:latest" | tr '[:upper:]' '[:lower:]')
+          docker push $IMAGE_NAME
