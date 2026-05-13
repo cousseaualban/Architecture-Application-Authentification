@@ -68,6 +68,21 @@ router.post('/login', authController.login);
 //route apres login, Mise en place de la vérification JWT (user connecté)
 // 401 : Token manquant/ Format du token invalide/ Token invalide ou expire
 // 200 : Utilisateur connecte
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Vérifie le token JWT et récupère l'utilisateur connecté
+ *     tags:
+ *       - Auth
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Utilisateur connecté
+ *       401:
+ *         description: Token manquant, invalide ou expiré
+ */
 router.get('/me', requireAuth, authController.me);
 
 module.exports = router;
